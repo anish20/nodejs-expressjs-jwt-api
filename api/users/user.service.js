@@ -7,11 +7,11 @@ module.exports={
         pool.query("select * from users where email=?",[data.email],(err,rs)=>{
             if(rs.length>0){
                 console.log(rs.length+": "+"Email alreddy exist");
-                return callback(null,{result:'error',message:'email already exist',status:501})
+                return callback(null,{result:'error',message:'Sorry this email already exist',status:501})
             }else{
                 let id=uuidv4();
-                pool.query(`insert into users (id,fname,email,password) values(?,?,?,?)`,
-                [id,data.fname,data.email,data.password],
+                pool.query(`insert into users (id,fname,email,password,gender) values(?,?,?,?,?)`,
+                [id,data.fname,data.email,data.password,data.gender],
                 (error,result,fields)=>{
                     if(error){
                         return callback(error);
@@ -26,7 +26,7 @@ module.exports={
     },
 
     login:(data,callback)=>{
-        pool.query(`select * from users where email=?`,[data.email],
+        pool.query(`select * from users where email=? `,[data.email],
         (error,result,fields)=>{
             if(error){
                 return callback(error);

@@ -1,9 +1,11 @@
 const express=require('express');
 require('dotenv').config();
 const app=express();
+var cors = require('cors')
 const PORT=process.env.APP_PORT;
 const userRouter=require('./api/users/user.router');
 
+app.use(cors())
 app.use(express.json());
 //EndPoint
 app.get("/api",(req,res,next)=>{

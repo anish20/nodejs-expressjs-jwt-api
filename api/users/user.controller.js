@@ -30,23 +30,33 @@ module.exports={
                      status:400
                 })
             }
-            const rst=compareSync(body.password,result[0].password);
-            console.log('Password matching result :',rst);
-            if(rst==false){
-                result.password=undefined;
-                return res.status(500).send({
+           
+            if(result!=null && result.length==0){
+                console.log("Sorry email is incorrect");
+                return res.status(404).send({
                     result:'error',
-                    message:'Sorry Password incorrect',
+                    message:'Sorry email is incorrect',
                     status:404
-               });
-                
+               })
             }else{
-            return res.status(200).send({
-                token:sign({ result:result },'SECRETKEY',{expiresIn:'1h'}),
-                user:result[0]
-            })
-        }
-            
+                const rst=compareSync(body.password,result[0].password);
+                if(rst==false){
+                    console.log("Sorry Password incorrect");
+                            result.password=undefined;
+                            return res.status(500).send({
+                                result:'error',
+                                message:'Sorry Password incorrect',
+                                status:404
+                               }); 
+                    }else{
+                        console.log("Login Successfully");
+                        return res.status(200).send({
+                                    token:sign({ result:result },process.env.SECRET_KEY,{expiresIn:'1h'}),
+                                    user:result[0]
+                                })
+                    }
+            }
+
         });
     },
     users:(req,res)=>{
@@ -59,6 +69,7 @@ module.exports={
                      status:400
                 })
             }
+            console.log("Get All Users");
             return res.status(200).send({
                 data:result
             })

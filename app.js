@@ -3,7 +3,7 @@ require('dotenv').config();
 const app=express();
 var cors = require('cors')
 const PORT=process.env.APP_PORT;
-const userRouter=require('./api/users/user.router');
+const userRouter=require('./api/routes/user.router');
 
 app.use(cors())
 app.use(express.json());

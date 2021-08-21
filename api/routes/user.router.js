@@ -1,6 +1,6 @@
-const {createUsers,loginUser,users}=require('../users/user.controller');
+const {createUsers,loginUser,users}=require('../controller/user.controller');
 const router=require('express').Router();
-const {checkToken}=require('./auth/token_validation');
+const {checkToken}=require('../auth/token_validation');
 
 //Create User
 router.post('/register',createUsers);

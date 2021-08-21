@@ -1,4 +1,4 @@
-const {register,login ,getAllUsers}=require('../users/user.service');
+const {register,login ,getAllUsers}=require('../services/user.service');
 const {genSaltSync,hashSync,compareSync }=require('bcrypt');
 const {sign}=require('jsonwebtoken');
 let jwt=null;
